@@ -1,6 +1,7 @@
 package entities;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,5 +29,26 @@ public class ProgramaFidelidade {
         }
         cliente.adicionarPontos(servico.getPontosFidelidade());
     }
+    public void verificarFidelidade(){
+        LocalDate hoje = LocalDate.now();
+        for(Cliente cliente : clientes){
+            long meses = ChronoUnit.MONTHS.between(cliente.getDataCadastro(),hoje);
+            if(meses >= 6){
+                System.out.println(cliente.getNome() + "Está no programa de fidelidade há " + meses + " meses");
+                cliente.adicionarPontos(-cliente.getPontosFidelidade());
+            }
+        }
+    }
+    public void exibirCliente(){
+        for(Cliente cliente : clientes){
+            System.out.println(cliente);
+        }
+    }
+    public void exibirServico(){
+        for(Servico servico : servicos){
+            System.out.println(servico);
+        }
+    }
+
 
 }
